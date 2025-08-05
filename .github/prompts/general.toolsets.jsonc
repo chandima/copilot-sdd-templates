@@ -1,0 +1,13 @@
+{
+    "description": "This file defines the toolsets available for documentation purposes.",
+    "toolSets": {
+        "coding": {
+            "tools": [
+                "context7",
+                "gistpad"
+            ],
+            "description": "Tools for coding.",
+            "icon": "tools"
+        }
+    }
+}

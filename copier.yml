@@ -1,0 +1,7 @@
+# Copier configuration for copilot-sdd-templates
+_subdirectory: templates/{{ template_name }}
+tasks:
+  - copy: ../common/.github/instructions/!(README.md) .github/instructions/
+  - copy: ../common/.github/prompts/!(README.md) .github/prompts/
+  - copy: ../common/.github/chatmodes/!(README.md) .github/chatmodes/
+  - copy: ../common/.vscode/mcp/!(README.md) .vscode/mcp/

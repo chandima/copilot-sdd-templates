@@ -1,12 +1,13 @@
 {
+  "chat.promptFiles": true,
   "chat.modeFilesLocations": {
-    "chatmodes": true
+    ".github/chatmodes": true
   },
   "chat.promptFilesLocations": {
-    "prompts": true
+    ".github/prompts": true
   },
   "chat.instructionsFilesLocations": {
-    "instructions": true
+    ".github/instructions": true
   },
   "files.eol": "\n",
   "files.insertFinalNewline": true,

@@ -29,6 +29,8 @@ Spec‑Driven Development is a lightweight, “spec‑first” practice: write a
 
 Teams evolve along a continuum:
 
+[![The Vibe‑Coding Journey: YOLO → Structured → Spec‑Driven (slide)](media/vibe_coding_continuum.png)](https://www.youtube.com/watch?v=1DlNVROQ6DI)
+
 - **YOLO Vibes** — “fun chaos”
   - Speed, instant gratification, fast learning
 - **Structured Vibes** — balance & sustainability

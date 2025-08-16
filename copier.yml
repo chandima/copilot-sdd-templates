@@ -1,9 +1,16 @@
 # Copier configuration for copilot-sdd-templates
 _subdirectory: templates/{{ template_name }}
 _tasks:
-  - copy: ../common/.github/instructions/!(README.md) .github/instructions/
-  - copy: ../common/.github/prompts/!(README.md) .github/prompts/
-  - copy: ../common/.github/chatmodes/!(README.md) .github/chatmodes/
-  - copy: ../common/.vscode/mcp/!(README.md) .vscode/mcp/
+  # Copy shared instruction files (excluding README.md) from template's common folder
+  - "bash -c 'mkdir -p .github/instructions && rsync -a --exclude README.md {{ _copier_conf.src_path }}/common/.github/instructions/ .github/instructions/'"
+  - "bash -c 'mkdir -p .github/prompts && rsync -a --exclude README.md {{ _copier_conf.src_path }}/common/.github/prompts/ .github/prompts/'"
+  - "bash -c 'mkdir -p .github/chatmodes && rsync -a --exclude README.md {{ _copier_conf.src_path }}/common/.github/chatmodes/ .github/chatmodes/'"
+  - "bash -c 'mkdir -p .vscode/mcp && rsync -a --exclude README.md {{ _copier_conf.src_path }}/common/.vscode/mcp/ .vscode/mcp/'"
   # Rename template _gitignore to .gitignore only for gist template if destination doesn't already have one
-  - "{% if template_name == 'gist' %}bash -c 'if [ ! -e .gitignore ]; then mv _gitignore .gitignore; fi'{% endif %}"
+  - "{% if template_name == 'gist' %}bash -c 'if [ -f _gitignore ] && [ ! -e .gitignore ]; then mv _gitignore .gitignore; fi'{% endif %}"
+
+_message_after_copy: |
+  Shared GitHub config & prompts copied in.
+  {% if template_name == 'gist' %}
+  If a pre-existing .gitignore was present, the template file remains as _gitignore for manual merge.
+  {% endif %}

@@ -1,9 +1,9 @@
 # Copier configuration for copilot-sdd-templates
 _subdirectory: templates/{{ template_name }}
-tasks:
+_tasks:
   - copy: ../common/.github/instructions/!(README.md) .github/instructions/
   - copy: ../common/.github/prompts/!(README.md) .github/prompts/
   - copy: ../common/.github/chatmodes/!(README.md) .github/chatmodes/
   - copy: ../common/.vscode/mcp/!(README.md) .vscode/mcp/
-  # Rename template _gitignore to .gitignore only for gist template
-  - "{% if template_name == 'gist' %}mv _gitignore .gitignore{% endif %}"
+  # Rename template _gitignore to .gitignore only for gist template if destination doesn't already have one
+  - "{% if template_name == 'gist' %}bash -c 'if [ ! -e .gitignore ]; then mv _gitignore .gitignore; fi'{% endif %}"

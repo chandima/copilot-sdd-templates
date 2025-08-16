@@ -1,14 +1,13 @@
 # Copier configuration for copilot-sdd-templates
 _subdirectory: templates/{{ template_name }}
-_tasks:
-  # Copy shared instruction files (excluding README.md) from template's common folder
-  - "bash -c 'mkdir -p .github/instructions && rsync -a --exclude README.md {{ _copier_conf.src_path }}/common/.github/instructions/ .github/instructions/'"
-  - "bash -c 'mkdir -p .github/prompts && rsync -a --exclude README.md {{ _copier_conf.src_path }}/common/.github/prompts/ .github/prompts/'"
-  - "bash -c 'mkdir -p .github/chatmodes && rsync -a --exclude README.md {{ _copier_conf.src_path }}/common/.github/chatmodes/ .github/chatmodes/'"
-  - "bash -c 'mkdir -p .vscode/mcp && rsync -a --exclude README.md {{ _copier_conf.src_path }}/common/.vscode/mcp/ .vscode/mcp/'"
-
+tasks:
+  - copy: ../common/.github/instructions/!(README.md) .github/instructions/
+  - copy: ../common/.github/prompts/!(README.md) .github/prompts/
+  - copy: ../common/.github/chatmodes/!(README.md) .github/chatmodes/
+  - copy: ../common/.vscode/mcp/!(README.md) .vscode/mcp/
 _message_after_copy: |
-  Shared GitHub config & prompts copied in.
+  Template generation complete.
   {% if template_name == 'gist' %}
-  '_gitignore' left unchanged; manually reconcile with your existing .gitignore if desired.
+  '_gitignore' left unchanged; manually reconcile with any existing .gitignore if desired.
   {% endif %}
+  (No post-copy tasks executed; repository assets are those bundled directly in the selected template.)

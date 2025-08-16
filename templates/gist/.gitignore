@@ -1,0 +1,11 @@
+# Ignore local and automation config
+.github/
+.vscode/
+
+# macOS noise
+.DS_Store
+
+# Generated diagrams and images
+assets/
+
+

@@ -8,4 +8,5 @@
 # Generated diagrams and images
 assets/
 
-
+# Ignore this .gitignore file
+.gitignore

@@ -2,6 +2,7 @@
 description: Beast Mode v3.1
 tools: ['extensions', 'codebase', 'usages', 'vscodeAPI', 'think', 'problems', 'changes', 'testFailure', 'terminalSelection', 'terminalLastCommand', 'openSimpleBrowser', 'fetch', 'findTestFiles', 'searchResults', 'githubRepo', 'runTests', 'editFiles', 'runNotebooks', 'search', 'new', 'runCommands', 'runTasks', 'generate','context7','mermaid']
 model: GPT-5 (Preview)
+applyTo: "**/*.md"
 ---
 
 # Beast Mode 3.1

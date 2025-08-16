@@ -1,20 +1,20 @@
 {
     "inputs": [],
-    "servers": {
-        "context7": {
-            "command": "npx",
-            "args": ["-y", "@upstash/context7-mcp@latest"]
-        },
-        "grep": {
-            "url": "https://mcp.grep.app"
-        },
-        "github": {
-			"type": "http",
-			"url": "https://api.githubcopilot.com/mcp/"
-		},
-        "mermaid": {
-            "command": "npx",
-            "args": ["-y", "@peng-shawn/mermaid-mcp-server"]
+        "servers": {
+            "context7": {
+                "command": "npx",
+                "args": ["-y", "@upstash/context7-mcp@latest"]
+            },
+            "grep": {
+                "url": "https://mcp.grep.app"
+            },
+            "github": {
+                "type": "http",
+                "url": "https://api.githubcopilot.com/mcp/"
+            },
+            "mermaid": {
+                "command": "npx",
+                "args": ["-y", "@peng-shawn/mermaid-mcp-server@latest"]
+            }
         }
-    }
 }

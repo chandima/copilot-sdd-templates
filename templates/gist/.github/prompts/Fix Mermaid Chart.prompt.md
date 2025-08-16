@@ -1,4 +1,5 @@
 ---
+description: "Prompt template for diagnosing, fixing, and validating Mermaid diagrams with tooling-assisted validation and rendering."
 mode: agent
 applyTo: "**/*.md"
 model: GPT-5 (Preview)

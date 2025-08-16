@@ -1,6 +1,9 @@
 ---
 description: 'Documentation and content creation standards'
+mode: agent
+model: GPT-5 (Preview)
 applyTo: '**/*.md'
+tools: [context7]
 ---
 
 ## Markdown Content Rules

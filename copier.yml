@@ -10,4 +10,3 @@ _message_after_copy: |
   {% if template_name == 'gist' %}
   '_gitignore' left unchanged; manually reconcile with any existing .gitignore if desired.
   {% endif %}
-  (No post-copy tasks executed; repository assets are those bundled directly in the selected template.)

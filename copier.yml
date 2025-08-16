@@ -5,3 +5,5 @@ tasks:
   - copy: ../common/.github/prompts/!(README.md) .github/prompts/
   - copy: ../common/.github/chatmodes/!(README.md) .github/chatmodes/
   - copy: ../common/.vscode/mcp/!(README.md) .vscode/mcp/
+  # Rename template _gitignore to .gitignore only for gist template
+  - "{% if template_name == 'gist' %}mv _gitignore .gitignore{% endif %}"

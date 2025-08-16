@@ -56,6 +56,26 @@ This repo helps you move rightward on that continuum by injecting opinionated `.
 - `templates/sst` — Serverless Stack (SST) development scaffold
 - `templates/typescript` — General TypeScript project scaffold
 
+### Create a new template (maintainer utility)
+
+To scaffold a new template directory (including the current shared chatmodes) run from the repo root:
+
+```zsh
+copier copy --trust internal/new-template .
+```
+
+Answer the prompts (`template_name`, `template_slug`, and a derived `final_slug` preview). A new directory will appear at `templates/<final_slug>/` with:
+
+- `.github/chatmodes/` populated from `common/.github/chatmodes/` (snapshot at creation time)
+- Empty `.github/instructions`, `.github/prompts`, and `.vscode/mcp` folders ready for overrides
+- A starter `README.md`
+
+Add any additional scaffold files you want this template to provide (package manifests, config, etc.). When end users run the **root** template, shared assets from `common/` will still be injected on top of what the new template supplies.
+
+If you later update shared chatmodes and want the new template’s snapshot refreshed, re-run the scaffold (it will not overwrite existing files unless you remove them first) or manually copy changes (the scaffold copies, it does not symlink).
+
+Note: `--trust` is required because the internal scaffold uses Copier tasks to create folders and copy chatmode files; without it, tasks are blocked.
+
 > Tip: Each template may include its own `.github` and `.vscode` folders to override or extend the common assets.
 
 ## Prerequisites

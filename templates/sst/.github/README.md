@@ -1,3 +1,3 @@
 # SST Template .github
 
-This folder contains GitHub configuration for the SST template.
+This folder contains SST configuration for the sst template.

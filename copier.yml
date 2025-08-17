@@ -1,7 +1,5 @@
 # Copier configuration for copilot-sdd-templates
 _subdirectory: templates/{{ template_name }}
-_skip:
-  - README.md
 tasks:
   - copy: ../common/.github/instructions/!(README.md) .github/instructions/
   - copy: ../common/.github/prompts/!(README.md) .github/prompts/

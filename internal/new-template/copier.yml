@@ -23,7 +23,8 @@ _tasks:
   - "mkdir -p templates/{{ final_slug }}/.github/chatmodes"
   - "mkdir -p templates/{{ final_slug }}/.github/instructions"
   - "mkdir -p templates/{{ final_slug }}/.github/prompts"
-  - "mkdir -p templates/{{ final_slug }}/.vscode/mcp"
-  # Seed with current shared chatmodes only (other shared assets come from root copier.yml during end-user generation)
-  - "cp common/.github/chatmodes/*.chatmode.md templates/{{ final_slug }}/.github/chatmodes/"
+  # Copy entire common .vscode directory (if present)
+  - "bash -c 'if [ -d common/.vscode ]; then mkdir -p templates/{{ final_slug }}/.vscode; rsync -a common/.vscode/ templates/{{ final_slug }}/.vscode/; fi'"
+  # Seed with current shared chatmodes only (resilient if none exist)
+  - 'bash -c ''set -e; shopt -s nullglob; copied=0; for f in common/.github/chatmodes/*.chatmode.md; do [ -e "$f" ] || continue; cp "$f" templates/{{ final_slug }}/.github/chatmodes/; copied=1; done; if [ $copied -eq 0 ]; then echo "(No shared chatmode files to seed)"; fi'''
   - "echo 'Scaffold complete.'"

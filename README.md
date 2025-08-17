@@ -47,7 +47,7 @@ This repo helps you move rightward on that continuum by injecting opinionated `.
 - Multiple project templates under `templates/`
 - A `common/` directory with shared assets that get injected into each template during generation:
   - `common/.github/{instructions,prompts,chatmodes}`
-  - `common/.vscode/mcp`
+  - `common/.vscode/*`
 - A root `copier.yml` that selects a template subdirectory and propagates common assets (README.md files in `common/` are excluded from copy)
 
 ## Available templates
@@ -80,7 +80,7 @@ Note: `--trust` is required because the internal scaffold uses Copier tasks to c
 
 ### Update existing templates with latest common assets (maintainer utilities)
 
-When you change shared assets under `common/` (chatmodes, instructions, prompts, or `.vscode/mcp`) you can refresh the snapshot inside one or all template directories using internal Copier utilities (no standalone script required).
+When you change shared assets under `common/` (chatmodes, instructions, prompts, or any files under `.vscode/`) you can refresh the snapshot inside one or all template directories using internal Copier utilities (no standalone script required).
 
 Update a single template:
 
@@ -156,7 +156,7 @@ What happens:
 
 ## How common assets are applied
 
-- During generation, common assets from `common/.github/*` and `common/.vscode/mcp/*` are copied into the output project.
+- During generation, common assets from `common/.github/*` and `common/.vscode/*` are copied into the output project.
 - `README.md` files inside `common/` are intentionally NOT copied (to avoid overwriting your project README).
 - Template-specific files take precedence if they define the same paths.
 
@@ -164,7 +164,7 @@ Tip: After the first apply, you can bring in updates later using `copier update`
 
 ## Updating shared content
 
-- Edit files under `common/.github/*` or `common/.vscode/mcp/*`.
+- Edit files under `common/.github/*` or `common/.vscode/*`.
 - From your project root, run `copier update` to pull in changes while respecting your local edits.
 - Because template-specific files can override common files, review diffs when updating.
 
@@ -186,7 +186,7 @@ brew upgrade copier
 ## Notes
 
 - Commands above are written for macOS zsh.
-- MCP-related configurations live under `.vscode/mcp` and `.github/chatmodes`/`prompts`/`instructions`.
+- MCP-related configurations live under `.vscode/mcp` (alongside any other shared VS Code settings) and `.github/chatmodes`/`prompts`/`instructions`.
 
 ## References
 

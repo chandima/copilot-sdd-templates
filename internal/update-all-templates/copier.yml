@@ -13,7 +13,6 @@ confirm_all:
   default: false
   help: MUST be true to proceed (safety guard)
 
-
 overwrite_mode:
   type: str
   choices:
@@ -30,7 +29,7 @@ _message_after_copy: |
   {% endif %}
 
 _tasks:
-  - >-
+  - |
     bash -c '
     set -euo pipefail;
     {% if not confirm_all %} echo "confirm_all=false; aborting." >&2; exit 0; {% endif %}
@@ -39,20 +38,14 @@ _tasks:
     for T in {{ templates_list }}; do
       if [ ! -d templates/$T ]; then echo "[warn] templates/$T missing, skipping" >&2; continue; fi;
       echo "-- Updating $T" >&2;
-      # Always copy ALL common artifacts
       mkdir -p templates/$T/.github/chatmodes;
       mkdir -p templates/$T/.github/instructions;
       mkdir -p templates/$T/.github/prompts;
-      mkdir -p templates/$T/.vscode/mcp;
+      mkdir -p templates/$T/.vscode;
       "${RSYNC_BASE[@]}" common/.github/chatmodes/ templates/$T/.github/chatmodes/;
       "${RSYNC_BASE[@]}" common/.github/instructions/ templates/$T/.github/instructions/;
       "${RSYNC_BASE[@]}" common/.github/prompts/ templates/$T/.github/prompts/;
-      "${RSYNC_BASE[@]}" common/.vscode/mcp/ templates/$T/.vscode/mcp/;
-      for f in mcp.json settings.json; do
-        if [ -f common/.vscode/$f ]; then
-          mkdir -p templates/$T/.vscode;
-          cp -f common/.vscode/$f templates/$T/.vscode/
-        fi
-      done;
+      "${RSYNC_BASE[@]}" common/.vscode/ templates/$T/.vscode/;
     done;
-    echo "All done."'
+    echo "All done."
+    '

@@ -39,7 +39,7 @@ _message_after_copy: |
   Updated template '{{ target_template }}' with selected common assets.
 
 _tasks:
-  - >-
+  - |
     bash -c '
     set -euo pipefail; T="{{ target_template }}";
     if [ ! -d templates/$T ]; then echo "Template directory templates/$T not found" >&2; exit 1; fi;
@@ -48,5 +48,6 @@ _tasks:
     {% if include_chatmodes %} mkdir -p templates/$T/.github/chatmodes; "${RSYNC_BASE[@]}" common/.github/chatmodes/ templates/$T/.github/chatmodes/; {% endif %}
     {% if include_instructions %} mkdir -p templates/$T/.github/instructions; "${RSYNC_BASE[@]}" common/.github/instructions/ templates/$T/.github/instructions/; {% endif %}
     {% if include_prompts %} mkdir -p templates/$T/.github/prompts; "${RSYNC_BASE[@]}" common/.github/prompts/ templates/$T/.github/prompts/; {% endif %}
-    {% if include_mcp %} mkdir -p templates/$T/.vscode/mcp; "${RSYNC_BASE[@]}" common/.vscode/mcp/ templates/$T/.vscode/mcp/; {% endif %}
-    echo "Done updating $T."'
+    {% if include_mcp %} mkdir -p templates/$T/.vscode; "${RSYNC_BASE[@]}" common/.vscode/ templates/$T/.vscode/; {% endif %}
+    echo "Done updating $T."
+    '

@@ -35,7 +35,6 @@ overwrite_mode:
   default: overwrite
   help: Overwrite existing files or skip them
 
-
 _message_after_copy: |
   Updated template '{{ target_template }}' with selected common assets.
 

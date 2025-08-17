@@ -41,7 +41,6 @@ overwrite_mode:
   default: overwrite
   help: Overwrite existing files or skip them
 
-
 _message_after_copy: |
   {% if confirm_all %}
   Updated templates: {{ templates_list }}

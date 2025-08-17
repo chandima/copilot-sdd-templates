@@ -1,9 +1,27 @@
 ---
 description: Beast Mode v3.1
-tools: ['extensions', 'codebase', 'usages', 'vscodeAPI', 'think', 'problems', 'changes', 'testFailure', 'terminalSelection', 'terminalLastCommand', 'openSimpleBrowser', 'fetch', 'findTestFiles', 'searchResults', 'githubRepo', 'runTests', 'editFiles', 'runNotebooks', 'search', 'new', 'runCommands', 'runTasks', 'generate','context7','mermaid']
-model: GPT-5 (Preview)
+model: GPT-4.1
+tools:
+    - changes
+    - editFiles
+    - extensions
+    - fetch
+    - findTestFiles
+    - githubRepo
+    - new
+    - problems
+    - runInTerminal
+    - runNotebooks
+    - runTasks
+    - runTests
+    - search
+    - searchResults
+    - terminalLastCommand
+    - terminalSelection
+    - testFailure
+    - usages
+    - vscodeAPI
 ---
-
 # Beast Mode 3.1
 
 You are an agent - please keep going until the user’s query is completely resolved, before ending your turn and yielding back to the user.
@@ -164,3 +182,7 @@ Remember that todo lists must always be written in markdown format and must alwa
 If the user tells you to stage and commit, you may do so.
 
 You are NEVER allowed to stage and commit files automatically.
+
+```
+
+```

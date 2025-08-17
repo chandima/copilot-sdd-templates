@@ -1,0 +1,67 @@
+_min_copier_version: "9.0"
+_subdirectory: .
+
+# Internal maintainer utility: update ALL listed template directories with current common assets.
+
+templates_list:
+  type: str
+  default: "gha gist prompteng sst typescript"
+  help: Space-separated list of template directory names under templates/ to refresh
+
+confirm_all:
+  type: bool
+  default: false
+  help: MUST be true to proceed (safety guard)
+
+include_chatmodes:
+  type: bool
+  default: true
+  help: Copy shared .github/chatmodes files
+
+include_instructions:
+  type: bool
+  default: true
+  help: Copy shared .github/instructions files
+
+include_prompts:
+  type: bool
+  default: true
+  help: Copy shared .github/prompts files
+
+include_mcp:
+  type: bool
+  default: true
+  help: Copy shared .vscode/mcp files
+
+overwrite_mode:
+  type: str
+  choices:
+    - overwrite
+    - skip
+  default: overwrite
+  help: Overwrite existing files or skip them
+
+
+_message_after_copy: |
+  {% if confirm_all %}
+  Updated templates: {{ templates_list }}
+  {% else %}
+  Skipped update because confirm_all was false.
+  {% endif %}
+
+_tasks:
+  - >-
+    bash -c '
+    set -euo pipefail;
+    {% if not confirm_all %} echo "confirm_all=false; aborting." >&2; exit 0; {% endif %}
+    RSYNC_BASE=(rsync -a --exclude README.md);
+    {% if overwrite_mode == 'skip' %} RSYNC_BASE+=(--ignore-existing); {% endif %}
+    for T in {{ templates_list }}; do
+      if [ ! -d templates/$T ]; then echo "[warn] templates/$T missing, skipping" >&2; continue; fi;
+      echo "-- Updating $T" >&2;
+      {% if include_chatmodes %} mkdir -p templates/$T/.github/chatmodes; "${RSYNC_BASE[@]}" common/.github/chatmodes/ templates/$T/.github/chatmodes/; {% endif %}
+      {% if include_instructions %} mkdir -p templates/$T/.github/instructions; "${RSYNC_BASE[@]}" common/.github/instructions/ templates/$T/.github/instructions/; {% endif %}
+      {% if include_prompts %} mkdir -p templates/$T/.github/prompts; "${RSYNC_BASE[@]}" common/.github/prompts/ templates/$T/.github/prompts/; {% endif %}
+      {% if include_mcp %} mkdir -p templates/$T/.vscode/mcp; "${RSYNC_BASE[@]}" common/.vscode/mcp/ templates/$T/.vscode/mcp/; {% endif %}
+    done;
+    echo "All done."'

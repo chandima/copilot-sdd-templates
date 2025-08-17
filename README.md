@@ -78,6 +78,41 @@ Note: `--trust` is required because the internal scaffold uses Copier tasks to c
 
 > Tip: Each template may include its own `.github` and `.vscode` folders to override or extend the common assets.
 
+### Update existing templates with latest common assets (maintainer utilities)
+
+When you change shared assets under `common/` (chatmodes, instructions, prompts, or `.vscode/mcp`) you can refresh the snapshot inside one or all template directories using internal Copier utilities (no standalone script required).
+
+Update a single template:
+
+```zsh
+copier copy --trust internal/update-template .
+```
+
+Prompts:
+
+- `target_template` (e.g. `gist`, `sst`, `typescript`)
+- Toggle asset groups: chatmodes, instructions, prompts, mcp
+- Overwrite mode: `overwrite` (default) vs `skip`
+
+Update all templates (requires explicit confirmation):
+
+```zsh
+copier copy --trust internal/update-all-templates .
+```
+
+Prompts:
+
+- `templates_list`: space separated names (default: `gha gist prompteng sst typescript`)
+- Same toggles for asset groups & overwrite mode
+- `confirm_all` must be true or the run aborts (safety guard)
+
+Behavior:
+
+- Uses `rsync` to merge common assets into template directories.
+- Excludes `README.md` files from common (same as root generation behavior).
+
+These utilities keep template directories in sync for inspection or cloning; end users always receive the latest shared assets at generation via the root `copier.yml`.
+
 ## Prerequisites
 
 - Homebrew (macOS)

@@ -7,6 +7,26 @@ target_template:
   type: str
   help: Name of the template directory under templates/ to refresh (e.g. gist, sst, typescript)
 
+include_chatmodes:
+  type: bool
+  default: true
+  help: Copy shared .github/chatmodes files
+
+include_instructions:
+  type: bool
+  default: true
+  help: Copy shared .github/instructions files
+
+include_prompts:
+  type: bool
+  default: true
+  help: Copy shared .github/prompts files
+
+include_mcp:
+  type: bool
+  default: true
+  help: Copy shared .vscode/mcp files
+
 overwrite_mode:
   type: str
   choices:
@@ -16,7 +36,7 @@ overwrite_mode:
   help: Overwrite existing files or skip them
 
 _message_after_copy: |
-  Updated template '{{ target_template }}' with all common assets.
+  Updated template '{{ target_template }}' with selected common assets.
 
 _tasks:
   - >-
@@ -25,20 +45,8 @@ _tasks:
     if [ ! -d templates/$T ]; then echo "Template directory templates/$T not found" >&2; exit 1; fi;
     RSYNC_BASE=(rsync -a --exclude README.md);
     {% if overwrite_mode == 'skip' %} RSYNC_BASE+=(--ignore-existing); {% endif %}
-    # Always copy ALL common artifacts
-    mkdir -p templates/$T/.github/chatmodes;
-    mkdir -p templates/$T/.github/instructions;
-    mkdir -p templates/$T/.github/prompts;
-    mkdir -p templates/$T/.vscode/mcp;
-    "${RSYNC_BASE[@]}" common/.github/chatmodes/ templates/$T/.github/chatmodes/;
-    "${RSYNC_BASE[@]}" common/.github/instructions/ templates/$T/.github/instructions/;
-    "${RSYNC_BASE[@]}" common/.github/prompts/ templates/$T/.github/prompts/;
-    "${RSYNC_BASE[@]}" common/.vscode/mcp/ templates/$T/.vscode/mcp/;
-    # Copy root-level VS Code config files if present
-    for f in mcp.json settings.json; do
-      if [ -f common/.vscode/$f ]; then
-        mkdir -p templates/$T/.vscode;
-        cp -f common/.vscode/$f templates/$T/.vscode/
-      fi
-    done;
+    {% if include_chatmodes %} mkdir -p templates/$T/.github/chatmodes; "${RSYNC_BASE[@]}" common/.github/chatmodes/ templates/$T/.github/chatmodes/; {% endif %}
+    {% if include_instructions %} mkdir -p templates/$T/.github/instructions; "${RSYNC_BASE[@]}" common/.github/instructions/ templates/$T/.github/instructions/; {% endif %}
+    {% if include_prompts %} mkdir -p templates/$T/.github/prompts; "${RSYNC_BASE[@]}" common/.github/prompts/ templates/$T/.github/prompts/; {% endif %}
+    {% if include_mcp %} mkdir -p templates/$T/.vscode/mcp; "${RSYNC_BASE[@]}" common/.vscode/mcp/ templates/$T/.vscode/mcp/; {% endif %}
     echo "Done updating $T."'

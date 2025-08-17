@@ -91,9 +91,8 @@ copier copy --trust internal/update-template .
 Prompts:
 
 - `target_template` (e.g. `gist`, `sst`, `typescript`)
+- Toggle asset groups: chatmodes, instructions, prompts, mcp
 - Overwrite mode: `overwrite` (default) vs `skip`
-
-All common asset groups are always copied: chatmodes, instructions, prompts, `.vscode/mcp/`, plus `common/.vscode/mcp.json` and `common/.vscode/settings.json` if present.
 
 Update all templates (requires explicit confirmation):
 
@@ -104,10 +103,8 @@ copier copy --trust internal/update-all-templates .
 Prompts:
 
 - `templates_list`: space separated names (default: `gha gist prompteng sst typescript`)
-- Overwrite mode selection
+- Same toggles for asset groups & overwrite mode
 - `confirm_all` must be true or the run aborts (safety guard)
-
-All common asset groups are always copied for each listed template.
 
 Behavior:
 

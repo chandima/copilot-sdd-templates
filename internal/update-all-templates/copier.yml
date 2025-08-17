@@ -13,25 +13,6 @@ confirm_all:
   default: false
   help: MUST be true to proceed (safety guard)
 
-include_chatmodes:
-  type: bool
-  default: true
-  help: Copy shared .github/chatmodes files
-
-include_instructions:
-  type: bool
-  default: true
-  help: Copy shared .github/instructions files
-
-include_prompts:
-  type: bool
-  default: true
-  help: Copy shared .github/prompts files
-
-include_mcp:
-  type: bool
-  default: true
-  help: Copy shared .vscode/mcp files
 
 overwrite_mode:
   type: str
@@ -43,7 +24,7 @@ overwrite_mode:
 
 _message_after_copy: |
   {% if confirm_all %}
-  Updated templates: {{ templates_list }}
+  Updated templates (all common assets): {{ templates_list }}
   {% else %}
   Skipped update because confirm_all was false.
   {% endif %}
@@ -58,9 +39,20 @@ _tasks:
     for T in {{ templates_list }}; do
       if [ ! -d templates/$T ]; then echo "[warn] templates/$T missing, skipping" >&2; continue; fi;
       echo "-- Updating $T" >&2;
-      {% if include_chatmodes %} mkdir -p templates/$T/.github/chatmodes; "${RSYNC_BASE[@]}" common/.github/chatmodes/ templates/$T/.github/chatmodes/; {% endif %}
-      {% if include_instructions %} mkdir -p templates/$T/.github/instructions; "${RSYNC_BASE[@]}" common/.github/instructions/ templates/$T/.github/instructions/; {% endif %}
-      {% if include_prompts %} mkdir -p templates/$T/.github/prompts; "${RSYNC_BASE[@]}" common/.github/prompts/ templates/$T/.github/prompts/; {% endif %}
-      {% if include_mcp %} mkdir -p templates/$T/.vscode/mcp; "${RSYNC_BASE[@]}" common/.vscode/mcp/ templates/$T/.vscode/mcp/; {% endif %}
+      # Always copy ALL common artifacts
+      mkdir -p templates/$T/.github/chatmodes;
+      mkdir -p templates/$T/.github/instructions;
+      mkdir -p templates/$T/.github/prompts;
+      mkdir -p templates/$T/.vscode/mcp;
+      "${RSYNC_BASE[@]}" common/.github/chatmodes/ templates/$T/.github/chatmodes/;
+      "${RSYNC_BASE[@]}" common/.github/instructions/ templates/$T/.github/instructions/;
+      "${RSYNC_BASE[@]}" common/.github/prompts/ templates/$T/.github/prompts/;
+      "${RSYNC_BASE[@]}" common/.vscode/mcp/ templates/$T/.vscode/mcp/;
+      for f in mcp.json settings.json; do
+        if [ -f common/.vscode/$f ]; then
+          mkdir -p templates/$T/.vscode;
+          cp -f common/.vscode/$f templates/$T/.vscode/
+        fi
+      done;
     done;
     echo "All done."'

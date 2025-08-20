@@ -8,6 +8,7 @@
   "chat.instructionsFilesLocations": {
     "instructions": true
   },
+  "chat.todoListTool.enabled": true,
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,

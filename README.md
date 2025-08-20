@@ -134,18 +134,36 @@ This repository is meant to be applied to an existing project (not to start a ne
 # From your existing project root
 copier copy --pretend "gh:chandima/copilot-sdd-templates" .
 ```
+What happens:
+- If you have NOT applied this template before (no `.copier-answers.yml` yet), Copier will prompt you for `template_name`.
+- If a previous run stored an answer, it will reuse it silently (so you might NOT see a prompt).
 
-You'll be prompted for `template_name`. Choose one of: `gist`, `sst`, or `typescript`.
+Available template names (directory names under `templates/`):
+- beastmode
+- gha
+- gist
+- plan
+- prompting
+- sst
+- typescript
+
+Non-interactive (explicit template, reproducible & CI‑friendly):
+
+```zsh
+copier copy --pretend --data template_name=sst "gh:chandima/copilot-sdd-templates" .
+```
+
+Need to force a new prompt? Delete or edit `.copier-answers.yml` first, then rerun the dry run without `--data`.
 
 ### Apply changes
 
-```zsh
-# Interactive (will prompt for template_name)
-copier copy "gh:chandima/copilot-sdd-templates" .
+Run non-interactively by specifying the template explicitly (recommended for reproducibility):
 
-# Non-interactive (select a template up front)
+```zsh
 copier copy --data template_name=sst "gh:chandima/copilot-sdd-templates" .
 ```
+
+If you omit `--data template_name=...` and no existing `.copier-answers.yml` contains a value, Copier will prompt you for `template_name`.
 
 What happens:
 

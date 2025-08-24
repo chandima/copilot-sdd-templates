@@ -2,6 +2,23 @@
 
 Templates for injecting shared .github and .vscode assets into an existing project, designed to work with Copier and MCP-powered workflows.
 
+## Table of contents
+
+- 🚀 Quick start: Apply now — [Apply to an existing project with Copier](#apply-to-an-existing-project-with-copier)
+- [What is Spec-Driven Development (SDD)?](#what-is-spec-driven-development-sdd)
+- [Transition from Vibe to Smart Coding using SDD](#transition-from-vibe-to-smart-coding-using-sdd-harald-kirchners-continuum)
+- [What this repo contains](#what-this-repo-contains)
+- [Available templates](#available-templates)
+- [Prerequisites](#prerequisites)
+- [Apply to an existing project with Copier](#apply-to-an-existing-project-with-copier)
+  - [Preview (dry run)](#preview-dry-run)
+  - [Apply changes](#apply-changes)
+- [How common assets are applied](#how-common-assets-are-applied)
+- [Updating shared content](#updating-shared-content)
+- [Troubleshooting](#troubleshooting)
+- [Notes](#notes)
+- [References](#references)
+
 ## What is Spec‑Driven Development (SDD)?
 
 Spec‑Driven Development is a lightweight, “spec‑first” practice: write a clear, structured specification before you write code, and let that spec drive planning, design, implementation, review, and validation. In AI‑native teams this becomes an **intent → spec → autocode** loop: humans define the spec, agents plan/execute, and results feed back into the spec. The spec is the single source of truth for the team and for tools.
@@ -25,9 +42,9 @@ Spec‑Driven Development is a lightweight, “spec‑first” practice: write a
 - **Works with iterative delivery** — specs evolve; changes are reflected in design and tasks, keeping the loop tight
 - **Agent‑compatible** — specs + evals + guardrails enable reliable delegation to coding/orchestration agents
 
-## From vibe to Smart Coding (Harald Kirchner’s continuum)
+## Transition from Vibe to Smart Coding using SDD (Harald Kirchner’s continuum)
 
-Teams evolve along a continuum:
+### Teams evolve along a continuum
 
 [![The Vibe‑Coding Journey: YOLO → Structured → Spec‑Driven (slide)](media/vibe_coding_continuum.png)](https://www.youtube.com/watch?v=1DlNVROQ6DI)
 
@@ -52,9 +69,13 @@ This repo helps you move rightward on that continuum by injecting opinionated `.
 
 ## Available templates
 
+- `templates/beastmode` — agent-focused scaffold with Beast Mode chatmodes and VS Code settings
+- `templates/gha` — GitHub Actions workflows and shared CI scaffolding
 - `templates/gist` — lightweight scaffold (docs/snippets oriented)
+- `templates/plan` — planning and architecture scaffold for specs, roadmaps, and reviews
+- `templates/prompting` — prompt-engineering oriented scaffold and Copilot chat assets
 - `templates/sst` — Serverless Stack (SST) development scaffold
-- `templates/typescript` — General TypeScript project scaffold
+- `templates/typescript` — general TypeScript project scaffold
 
 ### Create a new template (maintainer utility)
 
@@ -113,6 +134,8 @@ brew install copier
 ```
 
 ## Apply to an existing project with Copier
+
+> Start here if you want to integrate these assets into an existing repo. The commands below are copy‑paste ready for macOS zsh.
 
 This repository is meant to be applied to an existing project (not to start a new one). Run Copier from your existing project root and use `.` as the destination.
 

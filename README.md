@@ -94,18 +94,6 @@ Prompts:
 - Toggle asset groups: chatmodes, instructions, prompts, mcp
 - Overwrite mode: `overwrite` (default) vs `skip`
 
-Update all templates (requires explicit confirmation):
-
-```zsh
-copier copy --trust internal/update-all-templates .
-```
-
-Prompts:
-
-- `templates_list`: space separated names (default: `gha gist prompteng sst typescript`)
-- Same toggles for asset groups & overwrite mode
-- `confirm_all` must be true or the run aborts (safety guard)
-
 Behavior:
 
 - Uses `rsync` to merge common assets into template directories.

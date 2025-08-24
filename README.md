@@ -25,7 +25,7 @@ Spec‑Driven Development is a lightweight, “spec‑first” practice: write a
 - **Works with iterative delivery** — specs evolve; changes are reflected in design and tasks, keeping the loop tight
 - **Agent‑compatible** — specs + evals + guardrails enable reliable delegation to coding/orchestration agents
 
-## The vibe‑coding journey (Harald Kirchner’s continuum)
+## From vibe to Smart Coding (Harald Kirchner’s continuum)
 
 Teams evolve along a continuum:
 

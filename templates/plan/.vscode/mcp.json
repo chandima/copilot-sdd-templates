@@ -1,10 +1,5 @@
 {
-    "inputs": [
-        {
-            "type": "promptString", "id": "gistpad-github-token",
-            "description": "GistPad GitHub Token", "password": true
-        },
-    ],
+    "inputs": [],
     "servers": {
         "context7": {
             "command": "npx",

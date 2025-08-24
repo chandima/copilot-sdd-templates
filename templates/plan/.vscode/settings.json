@@ -1,0 +1,30 @@
+{
+  "chat.modeFilesLocations": {
+    "chatmodes": true
+  },
+  "chat.promptFilesLocations": {
+    "prompts": true
+  },
+  "chat.instructionsFilesLocations": {
+    "instructions": true
+  },
+  "chat.todoListTool.enabled": true,
+  "chat.checkpoints.enabled": true,
+  "chat.tools.terminal.autoApprove": {
+    "/^rm\\b/": false,
+    "/^Remove-Item\\b/i": false
+  },
+  "chat.agent.maxRequests": 100,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false,
+    "editor.formatOnSave": true
+  },
+  "files.associations": {
+    "*.chatmode.md": "markdown",
+    "*.instructions.md": "markdown",
+    "*.prompt.md": "markdown"
+  }
+}

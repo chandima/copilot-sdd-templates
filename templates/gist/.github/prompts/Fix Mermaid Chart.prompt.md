@@ -1,108 +1,105 @@
 ---
-description: "Prompt template for diagnosing, fixing, and validating Mermaid diagrams with tooling-assisted validation and rendering."
+description: "Prompt template for diagnosing, correcting, and validating Mermaid diagrams using tooling-assisted validation and rendering."
 mode: agent
 applyTo: "**/*.md"
 model: GPT-5 (Preview)
 tools: [context7, mermaid]
 ---
-You are assisting with diagnosing and fixing a Mermaid diagram.
+Begin with a concise checklist (3-7 bullets) of the review and correction steps you will take; keep items conceptual, not implementation-level.
+Assist in reviewing and fixing Mermaid diagrams following this sequence:
 
-Provide a precise task definition including:
+1. Specify the current diagram (raw Mermaid code block) and describe the observed problem(s), such as syntax errors, layout issues, missing elements, or rendering differences between platforms (e.g., GitHub vs. Mermaid Chart).
+2. Clearly state the intended outcome—what the corrected diagram is meant to convey (e.g., flow, sequence, dependency, state, architecture).
+3. Honor these constraints:
+   - Retain node identifiers where possible to reduce downstream diff noise.
+   - Use official Mermaid syntax (https://mermaid.js.org); avoid experimental or unofficial features unless necessary.
+   - Ensure readability: prefer left-to-right layouts for clarity, concise node/edge labels, and consistent casing.
+   - For diagrams exceeding ~25 nodes, recommend splitting into subgraphs or multiple diagrams for clarity.
+4. Define validation criteria (for example: “renders successfully in GitHub Markdown and Mermaid Chart with no warnings,” “no label truncation,” “edges clearly defined”).
 
-1. Current diagram (raw mermaid code block) and the observed issue(s) (e.g., syntax error, layout overlap, missing nodes, rendering differences between GitHub and Mermaid Chart).
-2. Desired outcome (what the corrected diagram should express semantically: flow, sequence, dependency, state, or architecture).
-3. Constraints:
-	- Keep node identifiers stable where possible to minimize downstream diff noise.
-	- Prefer officially supported Mermaid syntax (https://mermaid.js.org) and avoid experimental directives unless required.
-	- Optimize for readability: left-to-right if flow clarity improves, concise labels, consistent casing.
-	- If graph is complex (> ~25 nodes) propose decomposition (subgraphs or multiple diagrams).
-4. Validation criteria (e.g., “renders in GitHub Markdown and Mermaid Chart preview with no warnings”, “no label truncation”, “edges unambiguous”).
+Tooling Details (
+Context7 + Mermaid MCP):
 
-Tooling (Context7 docs + Mermaid MCP validation/render):
+- Look up official snippets and feature support using Context7’s `mermaidchart` library (https://context7.com/websites/mermaidchart).
+- Use the `mermaid` MCP server for programmatic validation and rendering. Expected methods:
+  - `mermaid.validate(code)`: returns { ok: bool, errors: [ { line, column, message } ] }
+  - `mermaid.render(code, format=svg)`: returns { format, data(base64)|path }
+  - (Optional) `mermaid.ast(code)`: retrieves a structural AST for detailed diffs if needed.
 
-- Use the Context7 `mermaidchart` library (https://context7.com/websites/mermaidchart) for authoritative syntax and feature lookups.
-- Use the `mermaid` MCP server to programmatically validate and render diagrams. Typical operations (exact method names may differ; adapt to server introspection):
-  - mermaid.validate(code) → returns { ok: bool, errors: [ { line, column, message } ] }
-  - mermaid.render(code, format=svg) → returns { format, data(base64)|path }
-  - (Optional) mermaid.ast(code) → structural representation (if supported) for deeper diffing.
+Before any significant tool call, state in one line the purpose of the call and the minimal inputs used.
+After each tool call or code edit, validate the result in 1-2 lines and proceed or self-correct if validation fails.
 
-For each fix cycle you should:
-	1. Query the tool for the specific construct (e.g., "sequenceDiagram activation", "classDiagram generics", "flowchart subgraph nesting") and retrieve the authoritative snippet.
-	2. Run mermaid.validate on the current snippet; record errors/warnings (attach line + message table).
-	3. Compare retrieved canonical syntax against the provided diagram; list deltas (missing arrows, malformed edge labels, invalid keywords).
-	4. Incorporate only necessary changes; avoid rewriting stylistically correct sections.
-	5. If a feature is unsupported per tool response, propose an alternative representation (e.g., switch from `stateDiagram` to `flowchart` with annotated nodes).
-	6. Cite (briefly) which retrieved construct(s) informed the fix (e.g., "Edge label format per mermaidchart: flowchart linkStyle syntax").
-	7. Re-run mermaid.validate after changes to ensure the revised code has no reported issues; if successful optionally call mermaid.render to confirm visual generation.
-  
-If the tool returns multiple variants, prefer the most recent stable syntax it marks or, if ambiguous, choose the simplest form that renders across common Markdown renderers (GitHub / VS Code).
+Repair Cycles:
+  1. Query the tools for specifics regarding the construct in question (e.g., “sequenceDiagram activation”, “classDiagram generics”, etc.) and retrieve authoritative example syntax.
+  2. Validate the submitted code with `mermaid.validate`; record all messages (tabulate line + message).
+  3. Compare to canonical syntax; identify and note syntax or content deltas (e.g., missing arrows, malformed edges, unsupported directives).
+  4. Apply only required changes; preserve correct and stylistically valid sections.
+  5. If a desired feature is unsupported, suggest a closest valid alternative (e.g., switch diagram type or represent content as a Note).
+  6. Reference (briefly) the constructs used for any corrections performed.
+  7. Re-run validation on the fixed code; proceed to `mermaid.render` to check that an SVG is generated, free of warnings.
 
-Example Mermaid parse error (simplified from a larger sequence diagram):
+When faced with multiple tool-provided variants, select the latest, stable syntax that works across major renderers (GitHub, VS Code Markdown). If unclear, opt for the simplest rendering-compatible form.
+
+Example parse error scenario (from a sequence diagram):
 
 ```
 Error: Parse error on line 18:
 ...olicy/trust registry  U-->>S: JSON { ac
 -----------------------^
-Expecting 'SOLID_OPEN_ARROW', 'DOTTED_OPEN_ARROW', 'SOLID_ARROW', 'BIDIRECTIONAL_SOLID_ARROW', 'DOTTED_ARROW', 'BIDIRECTIONAL_DOTTED_ARROW', 'SOLID_CROSS', 'DOTTED_CROSS', 'SOLID_POINT', 'DOTTED_POINT', got 'NEWLINE'
+Expecting 'SOLID_OPEN_ARROW', ... got 'NEWLINE'
 ```
 
-Root cause: The message label after `U-->>S:` contains unquoted braces with a partial JSON payload (`JSON { access_token ... }`). The Mermaid sequenceDiagram lexer treats the `{` as the start of a token sequence it cannot parse as a valid arrow or continuation, producing a newline parse error at the brace boundary.
+Root cause: Unquoted braces in message labels are interpreted as invalid token sequences. This breaks parsing in Mermaid sequence diagrams.
 
-Minimal failing snippet:
-
+Failing minimal example:
 ```mermaid
 sequenceDiagram
-	participant U as University
-	participant S as Student
-	%% Failing line (unquoted JSON-like payload)
-	U-->>S: JSON { access_token (OAuth 2.1), mcp_endpoint }
+  participant U as University
+  participant S as Student
+  U-->>S: JSON { access_token (OAuth 2.1), mcp_endpoint }
 ```
 
-Remedies (choose one):
-1. Quote the entire payload label (simplest):
+Remedies:
+- Quote the entire label containing literal braces:
 ```mermaid
 sequenceDiagram
-	participant U as University
-	participant S as Student
-	U-->>S: "JSON { access_token (OAuth 2.1), mcp_endpoint }"
+  participant U as University
+  participant S as Student
+  U-->>S: "JSON { access_token (OAuth 2.1), mcp_endpoint }"
 ```
-2. Simplify label (avoid braces):
+- Or, simplify the label to avoid problematic characters:
 ```mermaid
 sequenceDiagram
-	participant U as University
-	participant S as Student
-	U-->>S: access token + mcp endpoint
+  participant U as University
+  participant S as Student
+  U-->>S: access token + mcp endpoint
 ```
-3. Use a preceding Note for structured data, keep arrow concise:
+- Or, use a Note for lengthy/complex payloads:
 ```mermaid
 sequenceDiagram
-	participant U as University
-	participant S as Student
-	Note over U,S: Returns JSON (access_token, mcp_endpoint)
-	U-->>S: token + endpoint
+  participant U as University
+  participant S as Student
+  Note over U,S: Returns JSON (access_token, mcp_endpoint)
+  U-->>S: token + endpoint
 ```
 
-Validation steps after applying a fix:
-1. Run `mermaid.validate` with the corrected code; expect `ok: true` and empty `errors` array.
-2. If `ok: true`, run `mermaid.render` (format=svg) to ensure an SVG is produced (no runtime warnings).
-3. Visually inspect the rendered SVG (or open the path) to confirm:
-	 - The message arrow renders once.
-	 - The label text is intact (no truncation / wrapping anomalies).
-4. (Optional) Re-run with alternative remedy (e.g., Note variant) if readability or wrapping in your target viewport is better; pick the version with clearer semantics and shorter horizontal span.
-5. Record in the validation checklist: Parse Errors: Pass, Rendering: Pass, Label Clarity: Pass.
+Validation after corrections:
+1. Run `mermaid.validate`—expect no errors.
+2. Confirm SVG generation using `mermaid.render`—ensure rendering is successful and warning-free.
+3. Visually verify output for correct labeling and no unexpected truncation or wrapping.
+4. Optionally, trial alternative remedies for best clarity and compactness per use case.
+5. Document results; check for pass/fail on parsing, rendering, and semantic accuracy.
 
-Heuristic: Prefer quoting when you only need to preserve literal braces; prefer a Note when the payload is verbose or might wrap awkwardly.
+Choose quoting for preserving exact characters, Notes for verbose or multiline content.
 
-Response structure:
+Response Object Structure:
 
-- Summary of detected issues.
-- Corrected Mermaid code block.
-- Optional alternatives (e.g., switch to flowchart LR, or split into two diagrams) with trade‑offs.
-- Validation details:
-	- Pre-fix errors (table)
-	- Post-fix validation result (Pass/Fail)
-	- Checklist mapping each success criterion to Pass / Needs Review
+- `summary` (string): Summary of detected issues.
+- `code` (string; Mermaid markdown code block): The corrected diagram.
+- `alternatives` (array, optional): Variants with `code` and `tradeoffs` description.
+- `validation` (object):
+    - `pre_fix_errors` (array): Objects with `line`, `column`, and `message` for each error before correction.
+    - `post_fix_result` ('Pass' | 'Fail'): Result after correction.
+    - `checklist` (array): Each with `criterion` and pass status.
 
-If original diagram is not provided, request it first (only once). If multiple error classes exist, address syntax blockers before stylistic improvements.
-
-Be concise; focus on actionable corrections. Do not include unrelated commentary.
+If a diagram is not provided, request it once. Address syntax blockers before stylistic issues. Focus on actionable fixes—avoid commentary not related to the correction task.

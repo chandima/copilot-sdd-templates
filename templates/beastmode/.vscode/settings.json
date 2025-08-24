@@ -9,6 +9,12 @@
     "instructions": true
   },
   "chat.todoListTool.enabled": true,
+  "chat.checkpoints.enabled": true,
+  "chat.tools.terminal.autoApprove": {
+    "/^rm\\b/": false,
+    "/^Remove-Item\\b/i": false
+  },
+  "chat.agent.maxRequests": 100,
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,

@@ -1,10 +1,5 @@
 {
-    "inputs": [
-        {
-            "type": "promptString", "id": "gistpad-github-token",
-            "description": "GistPad GitHub Token", "password": true
-        },
-    ],
+    "inputs": [],
     "servers": {
         "context7": {
             "command": "npx",
@@ -16,13 +11,6 @@
         "github": {
 			"type": "http",
 			"url": "https://api.githubcopilot.com/mcp/"
-		},
-        "gistpad": {
-            "command": "npx",
-            "args": ["-y", "gistpad-mcp"],
-            "env": {
-                "GITHUB_TOKEN": "${input:gistpad-github-token}"
-            }
-        }
+		}
     }
 }

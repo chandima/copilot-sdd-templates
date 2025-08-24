@@ -40,11 +40,11 @@ Before calling any tools:
 
 - Always create a **Markdown checklist** of actionable steps:
 
-  ```markdown
+```markdown
 - [ ] Step 1: Description of the first step
 - [ ] Step 2: Description of the second step
 - [ ] Step 3: Description of the third step
-  ```
+```
   
 - Keep the list alive: check items `[x]` as you complete them and add new items as needed.
 - Use the Task List feature if available; otherwise fall back to the Markdown checklist in the message body.

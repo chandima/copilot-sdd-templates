@@ -1,0 +1,36 @@
+{
+    "inputs": [
+        {
+            "type": "promptString", "id": "N8N_API_URL",
+            "description": "n8n API url", "password": false
+        },
+        {
+            "type": "promptString", "id": "N8N_API_KEY",
+            "description": "n8n API key", "password": true
+        },
+    ],
+    "servers": {
+        "context7": {
+            "command": "npx",
+            "args": ["-y", "@upstash/context7-mcp@latest"]
+        },
+        "grep": {
+            "url": "https://mcp.grep.app"
+        },
+        "github": {
+			"type": "http",
+			"url": "https://api.githubcopilot.com/mcp/"
+		},
+        "n8n-mcp": {
+            "command": "npx",
+            "args": ["n8n-mcp"],
+            "env": {
+                "MCP_MODE": "stdio",
+                "LOG_LEVEL": "error",
+                "DISABLE_CONSOLE_OUTPUT": "true",
+                "N8N_API_URL": "${input:N8N_API_URL}",
+                "N8N_API_KEY": "${input:N8N_API_KEY}"
+            }
+        }
+    }
+}

@@ -73,7 +73,7 @@ This repo helps you move rightward on that continuum by injecting opinionated `.
 - `templates/gha` — GitHub Actions workflows and shared CI scaffolding
 - `templates/gist` — lightweight scaffold (docs/snippets oriented)
 - `templates/plan` — planning and architecture scaffold for specs, roadmaps, and reviews
-- `templates/prompting` — prompt-engineering oriented scaffold and Copilot chat assets
+- `templates/prompt` — prompt-engineering oriented scaffold and Copilot chat assets
 - `templates/sst` — Serverless Stack (SST) development scaffold
 - `templates/typescript` — general TypeScript project scaffold
 

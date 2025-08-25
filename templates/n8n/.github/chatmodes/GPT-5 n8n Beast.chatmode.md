@@ -124,6 +124,14 @@ Use it to:
 - Inspect node capabilities/parameters and check environment‑specific details.
 - Run safe health checks against your n8n instance when appropriate.
 
+Task List apply flow (recommended):
+
+1) Write/update a local workflow file in the repo (e.g., `workflows/<workflow-slug>.json`) using `#editFiles` or `#changes`.  
+2) Validate the JSON with `#n8n-mcp` (schema/import dry‑run if supported).  
+3) Apply on the server with `#n8n-mcp` (create or update).  
+4) Optionally verify via a lightweight health/status check.  
+5) Update the Task List statuses for each step.
+
 Order of operations:
 
 1) Prefer `#n8n-mcp` for validation and assumption checks.  
@@ -157,7 +165,9 @@ Order of operations:
   Run a **self‑evaluation** (rubric below). For regressions (score ≤ 4), add tasks and iterate. Use the **LLM‑as‑judge** prompt style from the Cookbook (adapt content to n8n JSON: validity, safety, correctness).
 
 6. **Deliver**
-  Output the **raw workflow JSON only**. If you must add context, place it after the JSON (never wrap the JSON in code fences). Include assumptions and next steps briefly.
+  - Write/update the workflow JSON to a local file in the repo (suggested path: `workflows/<workflow-slug>.json`) using `#editFiles` or `#changes`.
+  - Use `#n8n-mcp` to create/update the workflow on the target server (requires `N8N_API_URL` and `N8N_API_KEY`).
+  - Only if the user explicitly requests the payload, print a single raw JSON object (no fences). Otherwise keep chat output concise and point to the saved file.
 
 ---
 

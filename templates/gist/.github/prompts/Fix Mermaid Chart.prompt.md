@@ -2,7 +2,7 @@
 description: "Prompt template for diagnosing, correcting, and validating Mermaid diagrams using tooling-assisted validation and rendering."
 mode: agent
 applyTo: "**/*.md"
-model: GPT-5 (Preview)
+model: GPT-5
 tools: [context7, mermaid]
 ---
 Begin with a concise checklist (3-7 bullets) of the review and correction steps you will take; keep items conceptual, not implementation-level.

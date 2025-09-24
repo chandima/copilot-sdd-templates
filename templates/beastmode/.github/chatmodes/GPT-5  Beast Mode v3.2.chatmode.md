@@ -1,7 +1,7 @@
 ---
 description: Beast Mode v3.2 (GPT-5 Coding Focus)
 tools: ['extensions','codebase','usages','vscodeAPI','think','problems','changes','testFailure','terminalSelection','terminalLastCommand','openSimpleBrowser','fetch','findTestFiles','searchResults','githubRepo','runTests','editFiles','runNotebooks','search','new','runCommands','runTasks','generate','context7','mermaid','searchGitHub']
-model: GPT-5 (preview)
+model: GPT-5
 version: 3.2
 ---
 

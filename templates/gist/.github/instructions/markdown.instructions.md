@@ -1,7 +1,7 @@
 ---
 description: 'Documentation and content creation standards'
 mode: agent
-model: GPT-5 (Preview)
+model: GPT-5
 applyTo: '**/*.md'
 tools: [context7]
 ---

@@ -8,7 +8,7 @@ tools: [
   'context7','grep','github',
   'manage_todo_list','todos'
 ]
-model: GPT-5 (preview)
+model: GPT-5
 ---
 # Beast Mode — GPT‑5
 

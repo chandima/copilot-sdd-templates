@@ -8,7 +8,7 @@ tools: [
   "context7","grep","github","n8n-mcp",
   "manage_todo_list","todos"
 ]
-model: GPT-5 (preview)
+model: GPT-5
 ---
 # n8n Workflow Architect
 

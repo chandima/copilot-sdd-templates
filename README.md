@@ -59,7 +59,6 @@ Answer the prompts (`template_name`, `template_slug`, and a derived `final_slug`
 
 - `.github/chatmodes/` populated from `common/.github/chatmodes/` (snapshot at creation time)
 - Empty `.github/instructions`, `.github/prompts`, and `.vscode/mcp` folders ready for overrides
-- A starter `README.md`
 
 Add any additional scaffold files you want this template to provide (package manifests, config, etc.). When end users run the **root** template, shared assets from `common/` will still be injected on top of what the new template supplies.
 

@@ -13,7 +13,9 @@ post_date: 2025-06-03
 
 ## Spec-Driven Development (SDD)
 
-Spec-Driven Development is a lightweight, "spec-first" practice: write a clear, structured specification before you write code, and let that spec drive planning, design, implementation, review, and validation. In AI-native teams this becomes an **intent → spec → autocode** loop: humans define the spec, agents plan/execute, and results feed back into the spec. The spec is the single source of truth for the team and for tools.
+Spec-Driven Development is a lightweight, "spec-first" practice: write a clear, structured specification before you write code, and let that spec drive planning, design, implementation, review, and validation.
+In AI-native teams this becomes an **intent → spec → autocode** loop: humans define the spec, agents plan/execute, and results feed back into the spec.
+The spec is the single source of truth for the team and for tools.
 
 ## Why Now (AI-Native)
 

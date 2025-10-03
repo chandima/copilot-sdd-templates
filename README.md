@@ -55,7 +55,7 @@ To scaffold a new template directory (including the current shared chatmodes) ru
 copier copy --trust internal/new-template .
 ```
 
-Answer the prompts (`template_name`, `template_slug`, and a derived `final_slug` preview). A new directory will appear at `templates/<final_slug>/` with:
+Answer the single prompt (`template_slug`). A new directory will appear at `templates/<template_slug>/` with:
 
 - `.github/chatmodes/` populated from `common/.github/chatmodes/` (snapshot at creation time)
 - Empty `.github/instructions`, `.github/prompts`, and `.vscode/mcp` folders ready for overrides

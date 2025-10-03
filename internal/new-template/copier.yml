@@ -2,29 +2,21 @@ _min_copier_version: "9.0"
 _subdirectory: .
 
 # Questions
-template_name:
-  type: str
-  help: Human-friendly name for the new template (e.g. Payments Service)
-
 template_slug:
   type: str
-  help: Base name used to derive final directory slug (will be sanitized)
-  default: "{{ template_name }}"
-
-# Derived (sanitized) slug used for directory creation
-final_slug: "{{ template_slug|lower|replace(' ', '-')|replace('_','-')|replace('/', '-')|replace('.', '')|replace('--','-')|replace('--','-') }}"
+  help: Kebab-case directory name for the new template (e.g. sst-app, mobile-api, payments-service)
 
 _message_after_copy: |
-  New template scaffold created at templates/{{ final_slug }} (from input '{{ template_slug }}')
+  New template scaffold created at templates/{{ template_slug }}
   You can now add project-specific files under that directory. Shared chatmodes were copied.
 
 _tasks:
   # Create target directories (mkdir -p behavior)
-  - "mkdir -p templates/{{ final_slug }}/.github/chatmodes"
-  - "mkdir -p templates/{{ final_slug }}/.github/instructions"
-  - "mkdir -p templates/{{ final_slug }}/.github/prompts"
+  - "mkdir -p templates/{{ template_slug }}/.github/chatmodes"
+  - "mkdir -p templates/{{ template_slug }}/.github/instructions"
+  - "mkdir -p templates/{{ template_slug }}/.github/prompts"
   # Copy entire common .vscode directory (if present)
-  - "bash -c 'if [ -d common/.vscode ]; then mkdir -p templates/{{ final_slug }}/.vscode; rsync -a common/.vscode/ templates/{{ final_slug }}/.vscode/; fi'"
+  - "bash -c 'if [ -d common/.vscode ]; then mkdir -p templates/{{ template_slug }}/.vscode; rsync -a common/.vscode/ templates/{{ template_slug }}/.vscode/; fi'"
   # Seed with current shared chatmodes only (resilient if none exist)
-  - 'bash -c ''set -e; shopt -s nullglob; copied=0; for f in common/.github/chatmodes/*.chatmode.md; do [ -e "$f" ] || continue; cp "$f" templates/{{ final_slug }}/.github/chatmodes/; copied=1; done; if [ $copied -eq 0 ]; then echo "(No shared chatmode files to seed)"; fi'''
+  - 'bash -c ''set -e; shopt -s nullglob; copied=0; for f in common/.github/chatmodes/*.chatmode.md; do [ -e "$f" ] || continue; cp "$f" templates/{{ template_slug }}/.github/chatmodes/; copied=1; done; if [ $copied -eq 0 ]; then echo "(No shared chatmode files to seed)"; fi'''
   - "echo 'Scaffold complete.'"

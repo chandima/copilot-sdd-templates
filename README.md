@@ -5,8 +5,7 @@ Templates for injecting shared .github and .vscode assets into an existing proje
 ## Table of contents
 
 - 🚀 Quick start: Apply now — [Apply to an existing project with Copier](#apply-to-an-existing-project-with-copier)
-- [What is Spec-Driven Development (SDD)?](#what-is-spec-driven-development-sdd)
-- [Transition from Vibe to Smart Coding using SDD](#transition-from-vibe-to-smart-coding-using-sdd-harald-kirchners-continuum)
+- [About SDD](#about-sdd)
 - [What this repo contains](#what-this-repo-contains)
 - [Available templates](#available-templates)
 - [Prerequisites](#prerequisites)
@@ -19,45 +18,16 @@ Templates for injecting shared .github and .vscode assets into an existing proje
 - [Notes](#notes)
 - [References](#references)
 
-## What is Spec‑Driven Development (SDD)?
+## About SDD
 
-Spec‑Driven Development is a lightweight, “spec‑first” practice: write a clear, structured specification before you write code, and let that spec drive planning, design, implementation, review, and validation. In AI‑native teams this becomes an **intent → spec → autocode** loop: humans define the spec, agents plan/execute, and results feed back into the spec. The spec is the single source of truth for the team and for tools.
+This repository helps teams adopt **Spec-Driven Development (SDD)**—a lightweight, spec-first practice where you write clear specifications before code, enabling an **intent → spec → autocode** loop that works seamlessly with AI agents and automation.
 
-### Why now (AI‑native)
+**Why SDD matters:**
+- Clarity and alignment across teams
+- Safe, repeatable AI automation
+- Better traceability from requirements to implementation
 
-- **English is the new substrate** for orchestration, but it’s fuzzy — SDD adds constraints, guardrails, and interfaces so agents behave predictably.
-- **Treat specs/prompts like code**: version them, observe runs, and attach evals/tests so delegation stays safe and repeatable.
-
-### Why teams use SDD
-
-- **Clarity and alignment** — fewer ambiguities and faster decisions
-- **Traceability** — requirements map cleanly to designs, tasks, and tests
-- **Smoother reviews** — concrete artifacts make PRs and change discussions easier
-- **Faster onboarding and repeatability** — specs capture context so work scales
-- **Safer AI automation** — AI agents can execute against explicit intent, not vibes
-
-### How it fits with other practices
-
-- **Complements TDD/BDD** — SDD clarifies what to build; TDD/BDD verify behavior and correctness
-- **Works with iterative delivery** — specs evolve; changes are reflected in design and tasks, keeping the loop tight
-- **Agent‑compatible** — specs + evals + guardrails enable reliable delegation to coding/orchestration agents
-
-## Transition from Vibe to Smart Coding using SDD (Harald Kirchner’s continuum)
-
-### Teams evolve along a continuum
-
-[![The Vibe‑Coding Journey: YOLO → Structured → Spec‑Driven (slide)](media/vibe_coding_continuum.png)](https://www.youtube.com/watch?v=1DlNVROQ6DI)
-
-- **YOLO Vibes** — “fun chaos”
-  - Speed, instant gratification, fast learning
-- **Structured Vibes** — balance & sustainability
-  - Maintainability, readability, quality control
-- **Spec‑Driven Vibes** — “professional zen” and engineering excellence
-  - Scale, reliability, team velocity
-
-This repo helps you move rightward on that continuum by injecting opinionated `.github` and `.vscode` assets plus chatmodes and MCP configs that encourage writing specs, reviewing changes, and automating routine steps.
-
-<!-- References moved to bottom -->
+**Need the full story?** See the complete [SDD Overview](docs/sdd-overview.md) for principles, benefits, the evolution continuum, and how SDD fits with other practices.
 
 ## What this repo contains
 

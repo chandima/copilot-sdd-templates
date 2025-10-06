@@ -4,7 +4,7 @@ _subdirectory: .
 # Questions
 template_slug:
   type: str
-  help: Kebab-case directory name for the new template (e.g. sst-app, mobile-api, payments-service)
+  help: Kebab-case (or short single word) directory name for the new template. Concise slugs are encouraged (e.g. docs, plan, sst, api, mobile-api, payments-service)
 
 _message_after_copy: |
   New template scaffold created at templates/{{ template_slug }}

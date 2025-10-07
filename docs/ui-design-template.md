@@ -11,7 +11,7 @@ summary: Documentation for the ui-design template: purpose, features, Figma MCP 
 post_date: 2025-10-06
 ---
 
-## Overview
+## UI-Design template Overview
 
 The **ui-design** template accelerates converting Figma designs into production‑ready, accessible UI code by pairing a **reusable Copilot prompt** with Model Context Protocol (MCP) access to Figma. It standardizes how you request generation of HTML/CSS (or React) plus exported image assets, ensuring consistent structure and design tokens.
 

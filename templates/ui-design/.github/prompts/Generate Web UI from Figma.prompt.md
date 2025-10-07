@@ -7,6 +7,10 @@ Inputs:
   - css_strategy (choices: plain, modules, tailwind; default: plain)
   - breakpoints (default: 375,768,1024,1440)
 Prompt:
+Prerequisites check:
+- Verify Figma MCP server is available. If not, instruct user: "Please ensure the Figma MCP server is running. Check your .vscode/mcp.json configuration and restart VS Code if needed."
+- (Optional) If Playwright testing is needed later, verify Playwright MCP server availability.
+
 Using the Figma MCP server:
 1. If any required or optional inputs are omitted:
    - Always require `figma_url`; ask: "Please provide the Figma file or node URL (figma_url=...)".

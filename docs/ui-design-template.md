@@ -41,8 +41,12 @@ templates/ui-design/
 ## Prerequisites
 
 - Access to a running **Figma MCP server** in your Copilot environment (configured per GitHub Copilot + MCP docs)
+  - Ensure `.vscode/mcp.json` includes the Figma MCP server configuration
+  - Restart VS Code after adding/modifying MCP configuration
+  - Test MCP availability by asking Copilot: "List available MCP servers"
 - A valid Figma file or node URL you can share (ensure permissions allow API access)
 - (Optional) Chosen front-end stack (vanilla HTML/CSS/JS or React) aligned with your repository
+- (Optional) Playwright MCP server if you plan to generate tests for the UI components
 
 ## Reusable Prompt Inputs
 
@@ -109,6 +113,7 @@ Add stable rules to `.github/instructions/` if they apply across *every* UI gene
 
 | Issue | Cause | Resolution |
 |-------|-------|-----------|
+| Figma MCP server not available | MCP server not configured or running | Check `.vscode/mcp.json` exists with Figma server config; restart VS Code; verify with "List available MCP servers" |
 | Missing images | Node names not exportable or rasterization unsupported | Manually export from Figma, place in `image_dir`, update references |
 | Unstyled output | Wrong `css_strategy` vs project setup | Switch strategy or integrate the produced CSS file into your build pipeline |
 | Incorrect breakpoints | Typo or unsorted list | Provide a comma list of integers ascending (e.g., `360,768,1200`) |

@@ -1,17 +1,5 @@
 {
-  "chat.promptFiles": true,
-  "chat.modeFilesLocations": {
-    ".github/chatmodes": true
-  },
-  "chat.promptFilesLocations": {
-    ".github/prompts": true
-  },
-  "chat.instructionsFilesLocations": {
-    ".github/instructions": true
-  },
-  "chat.todoListTool.enabled": true,
-  "chat.checkpoints.enabled": true,
-  "chat.agent.maxRequests": 100,
+  "chat.customAgentInSubagent.enabled": true,
   "files.eol": "\n",
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true,
